@@ -7,26 +7,247 @@
     tools:context=".pkgActivity.MainActivity">
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
+        android:id="@+id/guidelineLeft"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_begin="20dp" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
+        android:id="@+id/guidelineRight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_end="20dp" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="150dp" />
+
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textViewPlayerOne"
         android:layout_width="0dp"
-        android:layout_height="30dp"
-        android:background="#ADADFF"
+        android:layout_height="50dp"
+        android:background="@drawable/rounded_corner_view"
+        android:textStyle="bold"
+        android:padding="15dp"
+        android:textSize="18dp"
+        android:gravity="center"
+        android:layout_margin="5dp"
         android:text="Player 1: X Pairs"
-        app:layout_constraintEnd_toStartOf="@+id/guidelineRightResult"
-        app:layout_constraintStart_toStartOf="@+id/guidelineLeftResult"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
+        app:layout_constraintEnd_toStartOf="@+id/textViewPlayerTwo"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewPlayerTwo"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:background="@drawable/rounded_corner_view"
+        android:textStyle="bold"
+        android:padding="15dp"
+        android:textSize="18dp"
+        android:gravity="center"
+        android:layout_margin="5dp"
+        android:text="Player 2: X Pairs"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
+        app:layout_constraintStart_toEndOf="@+id/textViewPlayerOne"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewCurrentPlayer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_corner_view"
+        android:textStyle="bold"
+        android:padding="15dp"
+        android:textSize="18dp"
+        android:gravity="center"
+        android:layout_margin="5dp"
+        android:text="Player X"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
+        app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
+        app:layout_constraintTop_toBottomOf="@+id/textViewPlayerOne" />
+
+    <ImageView
+        android:id="@+id/imageViewCard1"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:contentDescription="Card1"
+        app:layout_constraintBottom_toTopOf="@+id/imageViewCard5"
+        app:layout_constraintEnd_toStartOf="@+id/imageViewCard2"
+        app:layout_constraintStart_toEndOf="@+id/guidelineLeft"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCurrentPlayer"
+        app:srcCompat="@drawable/image0" />
+
+    <ImageView
+        android:id="@+id/imageViewCard2"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:contentDescription="Card2"
+        app:layout_constraintBottom_toTopOf="@+id/imageViewCard6"
+        app:layout_constraintEnd_toStartOf="@+id/imageViewCard3"
+        app:layout_constraintStart_toEndOf="@+id/imageViewCard1"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCurrentPlayer"
+        app:srcCompat="@drawable/image0" />
+
+    <ImageView
+        android:id="@+id/imageViewCard3"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:contentDescription="Card3"
+        app:layout_constraintBottom_toTopOf="@+id/imageViewCard7"
+        app:layout_constraintEnd_toStartOf="@+id/imageViewCard4"
+        app:layout_constraintStart_toEndOf="@+id/imageViewCard2"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCurrentPlayer"
+        app:srcCompat="@drawable/image0" />
+
+    <ImageView
+        android:id="@+id/imageViewCard4"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:contentDescription="Card4"
+        app:layout_constraintBottom_toTopOf="@+id/imageViewCard8"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
+        app:layout_constraintStart_toEndOf="@+id/imageViewCard3"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCurrentPlayer"
+        app:srcCompat="@drawable/image0" />
+
+    <ImageView
+        android:id="@+id/imageViewCard5"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:contentDescription="Card5"
+        app:layout_constraintBottom_toTopOf="@+id/imageViewCard9"
+        app:layout_constraintEnd_toStartOf="@+id/imageViewCard2"
+        app:layout_constraintStart_toEndOf="@+id/guidelineLeft"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewCard1"
+        app:srcCompat="@drawable/image1" />
+
+    <ImageView
+        android:id="@+id/imageViewCard6"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:contentDescription="Card6"
+        app:layout_constraintBottom_toTopOf="@+id/imageViewCard10"
+        app:layout_constraintEnd_toStartOf="@+id/imageViewCard3"
+        app:layout_constraintStart_toEndOf="@+id/imageViewCard1"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewCard2"
+        app:srcCompat="@drawable/image2" />
+
+    <ImageView
+        android:id="@+id/imageViewCard7"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:contentDescription="Card7"
+        app:layout_constraintBottom_toTopOf="@+id/imageViewCard11"
+        app:layout_constraintEnd_toStartOf="@+id/imageViewCard4"
+        app:layout_constraintStart_toEndOf="@+id/imageViewCard2"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewCard3"
+        app:srcCompat="@drawable/image3" />
+
+    <ImageView
+        android:id="@+id/imageViewCard8"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:contentDescription="Card8"
+        app:layout_constraintBottom_toTopOf="@+id/imageViewCard12"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
+        app:layout_constraintStart_toEndOf="@+id/imageViewCard3"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewCard4"
+        app:srcCompat="@drawable/image4" />
+
+    <ImageView
+        android:id="@+id/imageViewCard9"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:contentDescription="Card9"
+        app:layout_constraintBottom_toTopOf="@+id/imageViewCard13"
+        app:layout_constraintEnd_toStartOf="@+id/imageViewCard2"
+        app:layout_constraintStart_toEndOf="@+id/guidelineLeft"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewCard5"
+        app:srcCompat="@drawable/image5" />
+
+    <ImageView
+        android:id="@+id/imageViewCard10"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:contentDescription="Card10"
+        app:layout_constraintBottom_toTopOf="@+id/imageViewCard14"
+        app:layout_constraintEnd_toStartOf="@+id/imageViewCard3"
+        app:layout_constraintStart_toEndOf="@+id/imageViewCard1"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewCard6"
+        app:srcCompat="@drawable/image6" />
+
+    <ImageView
+        android:id="@+id/imageViewCard11"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:contentDescription="Card11"
+        app:layout_constraintBottom_toTopOf="@+id/imageViewCard15"
+        app:layout_constraintEnd_toStartOf="@+id/imageViewCard4"
+        app:layout_constraintStart_toEndOf="@+id/imageViewCard2"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewCard7"
+        app:srcCompat="@drawable/image7" />
+
+    <ImageView
+        android:id="@+id/imageViewCard12"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:contentDescription="Card12"
+        app:layout_constraintBottom_toTopOf="@+id/imageViewCard16"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
+        app:layout_constraintStart_toEndOf="@+id/imageViewCard3"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewCard8"
+        app:srcCompat="@drawable/image8" />
+
+    <ImageView
+        android:id="@+id/imageViewCard13"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:contentDescription="Card13"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineBottom"
+        app:layout_constraintEnd_toStartOf="@+id/imageViewCard2"
+        app:layout_constraintStart_toEndOf="@+id/guidelineLeft"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewCard9"
+        app:srcCompat="@drawable/image5" />
+
+    <ImageView
+        android:id="@+id/imageViewCard14"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:contentDescription="Card14"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineBottom"
+        app:layout_constraintEnd_toStartOf="@+id/imageViewCard3"
+        app:layout_constraintStart_toEndOf="@+id/imageViewCard1"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewCard10"
+        app:srcCompat="@drawable/image6" />
+
+    <ImageView
+        android:id="@+id/imageViewCard15"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:contentDescription="Card15"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineBottom"
+        app:layout_constraintEnd_toStartOf="@+id/imageViewCard4"
+        app:layout_constraintStart_toEndOf="@+id/imageViewCard2"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewCard11"
+        app:srcCompat="@drawable/image7" />
+
+    <ImageView
+        android:id="@+id/imageViewCard16"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:contentDescription="Card16"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineBottom"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
+        app:layout_constraintStart_toEndOf="@+id/imageViewCard3"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewCard12"
+        app:srcCompat="@drawable/image8" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
