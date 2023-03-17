@@ -2,12 +2,18 @@ package com.example.memory.pkgActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.memory.R;
@@ -24,9 +30,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private Game g = null;
+
+    private TextView textViewCurrentPlayer;
+
+    private TextView textViewPlayer1;
+
+    private TextView textViewPlayer2;
+
     private Player player;
+
+    private int pairsPlayer1 = 0;
+
+    private int pairsPlayer2 = 0;
     private ImageView ivCard1, ivCard2, ivCard3, ivCard4, ivCard5, ivCard6, ivCard7, ivCard8, ivCard9, ivCard10, ivCard11, ivCard12, ivCard13, ivCard14, ivCard15, ivCard16;
     private ArrayList<ImageView> collCards;
+
+    private Button newGame;
+
+    private int cardFlipped;
+
+    Drawable shapeCurrentPlayer = null;
+
+    Drawable shapePlayer1 = null;
+
+    Drawable shapePlayer2 = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +66,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     protected void getAllViews() {
+        textViewCurrentPlayer = findViewById(R.id.textViewCurrentPlayer);
+        textViewPlayer1 = findViewById(R.id.textViewPlayerOne);
+        textViewPlayer2 = findViewById(R.id.textViewPlayerTwo);
+        newGame = findViewById(R.id.newGame);
         ivCard1 = findViewById(R.id.imageViewCard1);
         ivCard2 = findViewById(R.id.imageViewCard2);
         ivCard3 = findViewById(R.id.imageViewCard3);
@@ -74,12 +105,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ivCard14.setOnClickListener(this);
         ivCard15.setOnClickListener(this);
         ivCard16.setOnClickListener(this);
+        newGame.setOnClickListener(this);
     }
 
     private void initOtherThings() {
         try {
             g = new Game();
             player = Player.PLAYER1;
+            textViewCurrentPlayer.setText(player + " is playing!");
+            cardFlipped = -1;
+            shapeCurrentPlayer = textViewCurrentPlayer.getBackground();
+            shapePlayer1 = textViewPlayer1.getBackground();
+            shapePlayer2 = textViewPlayer2.getBackground();
+            shapeCurrentPlayer.setColorFilter(Color.RED, PorterDuff.Mode.SRC_IN);
+            shapePlayer1.setColorFilter(Color.RED, PorterDuff.Mode.SRC_IN);
+            shapePlayer2.setColorFilter(Color.rgb(127, 255, 0), PorterDuff.Mode.SRC_IN);
             collCards = new ArrayList<>();
             collCards.add(ivCard1);
             collCards.add(ivCard2);
@@ -97,37 +137,47 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             collCards.add(ivCard14);
             collCards.add(ivCard15);
             collCards.add(ivCard16);
-            /*db = Database.getInstance();
-            collDices = new ArrayList<>();
-            games = new ArrayList<String>();
-            adapterGames = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, games);
-            collDices.add(ivDice1);
-            collDices.add(ivDice2);
-            collDices.add(ivDice3);
-            collDices.add(ivDice4);
-            collDices.add(ivDice5);
-            gameState = GameState.FIRST_DICING;
-            collGameSets = new ArrayList<>();
-            createGameSet();*/
         } catch (Exception ex) {
             popUpMessage("error:" + ex.getMessage());
         }
     }
-
     @Override
     public void onClick(View view) {
-        int flipped = 0;
-        for(int i = 0; i < collCards.size(); i++) {
-            if(view.equals(collCards.get(i))) {
-                flipCard(i);
-                if(flipped != 0) {
-                    checkMatch(flipped, i);
-                    flipped = 0;
-                } else {
-                    flipped = i;
-                }
+        if (view.equals(newGame)) {
+            g = new Game();
+            for(int cardNumber = 0; cardNumber < collCards.size(); cardNumber++) {
+                collCards.get(cardNumber).setImageResource(R.drawable.image0);
+            }
+            pairsPlayer1 = 0;
+            pairsPlayer2 = 0;
+            player = Player.PLAYER1;
+            cardFlipped = -1;
+            shapeCurrentPlayer.setColorFilter(Color.RED, PorterDuff.Mode.SRC_IN);
+            textViewPlayer1.setText("PLAYER1: 0 Pair");
+            textViewPlayer2.setText("PLAYER2: 0 Pair");
+            textViewCurrentPlayer.setText(player+" is playing!");
+        }else {
+            for(int cardNumber = 0; cardNumber < collCards.size(); cardNumber++) {
+                if(view.equals(collCards.get(cardNumber))) {
+                    //if(collCards.get(cardNumber).getDrawable() == (R.drawable.image0))
+                    Drawable drawable = collCards.get(cardNumber).getDrawable();
+                    Drawable.ConstantState state1 = drawable.getConstantState();
+                    Drawable.ConstantState state2 = getResources().getDrawable(R.drawable.image0).getConstantState();
+                    if(state1.equals(state2)) {
+                        flipCard(cardNumber);
+
+                        if(cardFlipped > -1) {
+
+                            checkMatch(cardFlipped, cardNumber);
+
+                            cardFlipped = -1;
+                        } else {
+                            cardFlipped = cardNumber;
+                        }
+                    }}
             }
         }
+
     }
 
     private void flipCard(int id) {
@@ -145,8 +195,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void checkMatch(int id1, int id2) {
+    @SuppressLint("ResourceAsColor")
+    private boolean checkMatch(int id1, int id2) {
         if(g.getNthCard(id1) != g.getNthCard(id2)) {
+            Log.i("test", "no Match");
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 @Override
@@ -154,9 +206,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     collCards.get(id1).setImageResource(R.drawable.image0);
                     collCards.get(id2).setImageResource(R.drawable.image0);
                 }
-            }, 2000);
+            }, 1200);
+            if(player == player.PLAYER1){
+                player = Player.PLAYER2;
+                shapeCurrentPlayer.setColorFilter(Color.rgb(127, 255, 0), PorterDuff.Mode.SRC_IN);
+            } else {
+                player = Player.PLAYER1;
+                shapeCurrentPlayer.setColorFilter(Color.RED, PorterDuff.Mode.SRC_IN);
+            }
+
+            textViewCurrentPlayer.setText(player+" is playing!");
+            return false;
         } else {
+            if(player == Player.PLAYER1){
+                pairsPlayer1++;
+                textViewPlayer1.setText(player + ": "+pairsPlayer1+ " Pair");
+            } else{
+                pairsPlayer2++;
+                textViewPlayer2.setText(player + ": "+pairsPlayer2+ " Pair");
+            }
+
             Log.i("test", "Match");
+            return true;
         }
     }
 

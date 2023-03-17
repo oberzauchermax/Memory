@@ -11,9 +11,18 @@ public class Game {
     public Game () {
         this.id = _ID++;
         this.cards = new TreeMap<Integer, Integer>();
+        int[] count = new int[8];
+        for(int i = 0; i < count.length; i++) {
+            count[i] = 0;
+        }
         Random rand = new Random();
-        for(int i = 0; i <= 16; i++) {
-            this.cards.put(i, rand.nextInt(8)+1);
+        for(int i = 0; i < 16; i++) {
+            int num = rand.nextInt(8) + 1;
+            while(count[num-1] == 2) {
+                num = rand.nextInt(8) + 1;
+            }
+            count[num-1]++;
+            this.cards.put(i, num);
         }
     }
 
