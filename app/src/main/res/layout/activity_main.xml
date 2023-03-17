@@ -127,7 +127,7 @@
         app:layout_constraintEnd_toStartOf="@+id/imageViewCard2"
         app:layout_constraintStart_toEndOf="@+id/guidelineLeft"
         app:layout_constraintTop_toBottomOf="@+id/imageViewCard1"
-        app:srcCompat="@drawable/image1" />
+        app:srcCompat="@drawable/image0" />
 
     <ImageView
         android:id="@+id/imageViewCard6"
@@ -138,7 +138,7 @@
         app:layout_constraintEnd_toStartOf="@+id/imageViewCard3"
         app:layout_constraintStart_toEndOf="@+id/imageViewCard1"
         app:layout_constraintTop_toBottomOf="@+id/imageViewCard2"
-        app:srcCompat="@drawable/image2" />
+        app:srcCompat="@drawable/image0" />
 
     <ImageView
         android:id="@+id/imageViewCard7"
@@ -149,7 +149,7 @@
         app:layout_constraintEnd_toStartOf="@+id/imageViewCard4"
         app:layout_constraintStart_toEndOf="@+id/imageViewCard2"
         app:layout_constraintTop_toBottomOf="@+id/imageViewCard3"
-        app:srcCompat="@drawable/image3" />
+        app:srcCompat="@drawable/image0" />
 
     <ImageView
         android:id="@+id/imageViewCard8"
@@ -160,7 +160,7 @@
         app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
         app:layout_constraintStart_toEndOf="@+id/imageViewCard3"
         app:layout_constraintTop_toBottomOf="@+id/imageViewCard4"
-        app:srcCompat="@drawable/image4" />
+        app:srcCompat="@drawable/image0" />
 
     <ImageView
         android:id="@+id/imageViewCard9"
@@ -171,7 +171,7 @@
         app:layout_constraintEnd_toStartOf="@+id/imageViewCard2"
         app:layout_constraintStart_toEndOf="@+id/guidelineLeft"
         app:layout_constraintTop_toBottomOf="@+id/imageViewCard5"
-        app:srcCompat="@drawable/image5" />
+        app:srcCompat="@drawable/image0" />
 
     <ImageView
         android:id="@+id/imageViewCard10"
@@ -182,7 +182,7 @@
         app:layout_constraintEnd_toStartOf="@+id/imageViewCard3"
         app:layout_constraintStart_toEndOf="@+id/imageViewCard1"
         app:layout_constraintTop_toBottomOf="@+id/imageViewCard6"
-        app:srcCompat="@drawable/image6" />
+        app:srcCompat="@drawable/image0" />
 
     <ImageView
         android:id="@+id/imageViewCard11"
@@ -193,7 +193,7 @@
         app:layout_constraintEnd_toStartOf="@+id/imageViewCard4"
         app:layout_constraintStart_toEndOf="@+id/imageViewCard2"
         app:layout_constraintTop_toBottomOf="@+id/imageViewCard7"
-        app:srcCompat="@drawable/image7" />
+        app:srcCompat="@drawable/image0" />
 
     <ImageView
         android:id="@+id/imageViewCard12"
@@ -204,7 +204,7 @@
         app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
         app:layout_constraintStart_toEndOf="@+id/imageViewCard3"
         app:layout_constraintTop_toBottomOf="@+id/imageViewCard8"
-        app:srcCompat="@drawable/image8" />
+        app:srcCompat="@drawable/image0" />
 
     <ImageView
         android:id="@+id/imageViewCard13"
@@ -215,7 +215,7 @@
         app:layout_constraintEnd_toStartOf="@+id/imageViewCard2"
         app:layout_constraintStart_toEndOf="@+id/guidelineLeft"
         app:layout_constraintTop_toBottomOf="@+id/imageViewCard9"
-        app:srcCompat="@drawable/image5" />
+        app:srcCompat="@drawable/image0" />
 
     <ImageView
         android:id="@+id/imageViewCard14"
@@ -226,7 +226,7 @@
         app:layout_constraintEnd_toStartOf="@+id/imageViewCard3"
         app:layout_constraintStart_toEndOf="@+id/imageViewCard1"
         app:layout_constraintTop_toBottomOf="@+id/imageViewCard10"
-        app:srcCompat="@drawable/image6" />
+        app:srcCompat="@drawable/image0" />
 
     <ImageView
         android:id="@+id/imageViewCard15"
@@ -237,7 +237,7 @@
         app:layout_constraintEnd_toStartOf="@+id/imageViewCard4"
         app:layout_constraintStart_toEndOf="@+id/imageViewCard2"
         app:layout_constraintTop_toBottomOf="@+id/imageViewCard11"
-        app:srcCompat="@drawable/image7" />
+        app:srcCompat="@drawable/image0" />
 
     <ImageView
         android:id="@+id/imageViewCard16"
@@ -248,6 +248,6 @@
         app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
         app:layout_constraintStart_toEndOf="@+id/imageViewCard3"
         app:layout_constraintTop_toBottomOf="@+id/imageViewCard12"
-        app:srcCompat="@drawable/image8" />
+        app:srcCompat="@drawable/image0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

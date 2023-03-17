@@ -1,5 +1,6 @@
 package com.example.memory.pkgData;
 
+import java.util.Random;
 import java.util.TreeMap;
 
 public class Game {
@@ -10,8 +11,9 @@ public class Game {
     public Game () {
         this.id = _ID++;
         this.cards = new TreeMap<Integer, Integer>();
-        for(int i = 1; i <= 16; i++) {
-            this.cards.put(i, 0);
+        Random rand = new Random();
+        for(int i = 0; i <= 16; i++) {
+            this.cards.put(i, rand.nextInt(8)+1);
         }
     }
 
@@ -29,6 +31,10 @@ public class Game {
 
     public void setCards(TreeMap<Integer, Integer> cards) {
         this.cards = cards;
+    }
+
+    public int getNthCard(int id) {
+        return this.cards.get(id);
     }
 
     @Override
