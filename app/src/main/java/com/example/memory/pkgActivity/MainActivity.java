@@ -1,16 +1,14 @@
 package com.example.memory.pkgActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
-import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,7 +18,6 @@ import com.example.memory.R;
 import com.example.memory.pkgData.Game;
 
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -30,30 +27,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private Game g = null;
-
     private TextView textViewCurrentPlayer;
-
     private TextView textViewPlayer1;
-
     private TextView textViewPlayer2;
-
+    Drawable shapeCurrentPlayer = null;
+    Drawable shapePlayer1 = null;
+    Drawable shapePlayer2 = null;
     private Player player;
-
-    private int pairsPlayer1 = 0;
-
-    private int pairsPlayer2 = 0;
+    private int pairsPlayer1;
+    private int pairsPlayer2;
     private ImageView ivCard1, ivCard2, ivCard3, ivCard4, ivCard5, ivCard6, ivCard7, ivCard8, ivCard9, ivCard10, ivCard11, ivCard12, ivCard13, ivCard14, ivCard15, ivCard16;
     private ArrayList<ImageView> collCards;
-
     private Button newGame;
-
     private int cardFlipped;
-
-    Drawable shapeCurrentPlayer = null;
-
-    Drawable shapePlayer1 = null;
-
-    Drawable shapePlayer2 = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,14 +98,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         try {
             g = new Game();
             player = Player.PLAYER1;
-            textViewCurrentPlayer.setText(player + " is playing!");
             cardFlipped = -1;
+            pairsPlayer1 = 0;
+            pairsPlayer2 = 0;
+            textViewCurrentPlayer.setText(player + " is playing!");
+            textViewPlayer1.setText(player + ": "+pairsPlayer1);
+            textViewPlayer2.setText(player + ": "+pairsPlayer2);
             shapeCurrentPlayer = textViewCurrentPlayer.getBackground();
             shapePlayer1 = textViewPlayer1.getBackground();
             shapePlayer2 = textViewPlayer2.getBackground();
-            shapeCurrentPlayer.setColorFilter(Color.RED, PorterDuff.Mode.SRC_IN);
-            shapePlayer1.setColorFilter(Color.RED, PorterDuff.Mode.SRC_IN);
-            shapePlayer2.setColorFilter(Color.rgb(127, 255, 0), PorterDuff.Mode.SRC_IN);
+            shapeCurrentPlayer.setColorFilter(Color.rgb(255, 69, 69), PorterDuff.Mode.SRC_IN);
+            shapePlayer1.setColorFilter(Color.rgb(255, 69, 69), PorterDuff.Mode.SRC_IN);
+            shapePlayer2.setColorFilter(Color.rgb(69, 255, 69), PorterDuff.Mode.SRC_IN);
             collCards = new ArrayList<>();
             collCards.add(ivCard1);
             collCards.add(ivCard2);
@@ -144,46 +134,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         if (view.equals(newGame)) {
-            g = new Game();
-            for(int cardNumber = 0; cardNumber < collCards.size(); cardNumber++) {
-                collCards.get(cardNumber).setImageResource(R.drawable.image0);
+            for(int i = 0; i < collCards.size(); i++) {
+                collCards.get(i).setImageResource(R.drawable.image0);
             }
-            pairsPlayer1 = 0;
-            pairsPlayer2 = 0;
-            player = Player.PLAYER1;
-            cardFlipped = -1;
-            shapeCurrentPlayer.setColorFilter(Color.RED, PorterDuff.Mode.SRC_IN);
-            textViewPlayer1.setText("PLAYER1: 0 Pair");
-            textViewPlayer2.setText("PLAYER2: 0 Pair");
-            textViewCurrentPlayer.setText(player+" is playing!");
-        }else {
+            initOtherThings();
+        } else {
             for(int cardNumber = 0; cardNumber < collCards.size(); cardNumber++) {
                 if(view.equals(collCards.get(cardNumber))) {
-                    //if(collCards.get(cardNumber).getDrawable() == (R.drawable.image0))
                     Drawable drawable = collCards.get(cardNumber).getDrawable();
                     Drawable.ConstantState state1 = drawable.getConstantState();
-                    Drawable.ConstantState state2 = getResources().getDrawable(R.drawable.image0).getConstantState();
+                    Drawable.ConstantState state2 = ResourcesCompat.getDrawable(getResources(), R.drawable.image0, null).getConstantState();
                     if(state1.equals(state2)) {
                         flipCard(cardNumber);
-
                         if(cardFlipped > -1) {
-
                             checkMatch(cardFlipped, cardNumber);
-
                             cardFlipped = -1;
                         } else {
                             cardFlipped = cardNumber;
                         }
-                    }}
+                    }
+                }
             }
         }
-
     }
 
     private void flipCard(int id) {
-        Log.i("test", id + ", " + g.getNthCard(id));
         switch (g.getNthCard(id)) {
-            //case 0: collCards.get(id).setImageResource(R.drawable.image0); break;
             case 1: collCards.get(id).setImageResource(R.drawable.image1); break;
             case 2: collCards.get(id).setImageResource(R.drawable.image2); break;
             case 3: collCards.get(id).setImageResource(R.drawable.image3); break;
@@ -195,10 +171,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    @SuppressLint("ResourceAsColor")
-    private boolean checkMatch(int id1, int id2) {
+    private void checkMatch(int id1, int id2) {
         if(g.getNthCard(id1) != g.getNthCard(id2)) {
-            Log.i("test", "no Match");
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 @Override
@@ -207,27 +181,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     collCards.get(id2).setImageResource(R.drawable.image0);
                 }
             }, 1200);
+            //Thread.sleep(2000);
+            //collCards.get(id1).setImageResource(R.drawable.image0);
+            //collCards.get(id2).setImageResource(R.drawable.image0);
             if(player == player.PLAYER1){
                 player = Player.PLAYER2;
-                shapeCurrentPlayer.setColorFilter(Color.rgb(127, 255, 0), PorterDuff.Mode.SRC_IN);
+                shapeCurrentPlayer.setColorFilter(Color.rgb(69, 255, 69), PorterDuff.Mode.SRC_IN);
             } else {
                 player = Player.PLAYER1;
-                shapeCurrentPlayer.setColorFilter(Color.RED, PorterDuff.Mode.SRC_IN);
+                shapeCurrentPlayer.setColorFilter(Color.rgb(255, 69, 69), PorterDuff.Mode.SRC_IN);
             }
-
             textViewCurrentPlayer.setText(player+" is playing!");
-            return false;
         } else {
             if(player == Player.PLAYER1){
                 pairsPlayer1++;
-                textViewPlayer1.setText(player + ": "+pairsPlayer1+ " Pair");
+                textViewPlayer1.setText(player + ": "+pairsPlayer1);
             } else{
                 pairsPlayer2++;
-                textViewPlayer2.setText(player + ": "+pairsPlayer2+ " Pair");
+                textViewPlayer2.setText(player + ": "+pairsPlayer2);
             }
-
-            Log.i("test", "Match");
-            return true;
+            if(pairsPlayer1 + pairsPlayer2 >= 8) {
+                shapeCurrentPlayer.setColorFilter(Color.rgb(69, 69, 69), PorterDuff.Mode.SRC_IN);
+                if(pairsPlayer1 > pairsPlayer2) {
+                    textViewCurrentPlayer.setText("Player1 won with " + pairsPlayer1 + " pairs");
+                } else if(pairsPlayer2 > pairsPlayer1) {
+                    textViewCurrentPlayer.setText("Player2 won with " + pairsPlayer2 + " pairs");
+                } else {
+                    textViewCurrentPlayer.setText("Draw");
+                }
+            }
         }
     }
 

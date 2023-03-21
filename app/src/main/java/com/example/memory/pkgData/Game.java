@@ -1,5 +1,8 @@
 package com.example.memory.pkgData;
 
+import android.util.Log;
+
+import java.lang.reflect.Array;
 import java.util.Random;
 import java.util.TreeMap;
 
